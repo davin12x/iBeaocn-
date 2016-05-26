@@ -12,9 +12,11 @@
 		0A53821D1CE798150070FFC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A53821B1CE798150070FFC8 /* Main.storyboard */; };
 		0A53821F1CE798150070FFC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A53821E1CE798150070FFC8 /* Assets.xcassets */; };
 		0A5382221CE798150070FFC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5382201CE798150070FFC8 /* LaunchScreen.storyboard */; };
+		84B157F568049BEC1FB8758C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE8ABB8BE2BC0D7FDBBCA14 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		017CEED9CDB3A5D6D24759FD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		0A5382141CE798130070FFC8 /* Beacons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beacons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5382171CE798140070FFC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A5382191CE798140070FFC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,9 @@
 		0A53821E1CE798150070FFC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A5382211CE798150070FFC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A5382231CE798150070FFC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A53822C1CE7A2310070FFC8 /* Beacons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Beacons-Bridging-Header.h"; sourceTree = "<group>"; };
+		5CBF13182D5908096377217F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6FE8ABB8BE2BC0D7FDBBCA14 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B157F568049BEC1FB8758C /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,8 @@
 			children = (
 				0A5382161CE798140070FFC8 /* Beacons */,
 				0A5382151CE798130070FFC8 /* Products */,
+				345148557B9AB937485A88D3 /* Pods */,
+				4A56DB670D7BB835958E9FA8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +68,26 @@
 				0A53821E1CE798150070FFC8 /* Assets.xcassets */,
 				0A5382201CE798150070FFC8 /* LaunchScreen.storyboard */,
 				0A5382231CE798150070FFC8 /* Info.plist */,
+				0A53822C1CE7A2310070FFC8 /* Beacons-Bridging-Header.h */,
 			);
 			path = Beacons;
+			sourceTree = "<group>";
+		};
+		345148557B9AB937485A88D3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				017CEED9CDB3A5D6D24759FD /* Pods.debug.xcconfig */,
+				5CBF13182D5908096377217F /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4A56DB670D7BB835958E9FA8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FE8ABB8BE2BC0D7FDBBCA14 /* Pods.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +97,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A5382261CE798150070FFC8 /* Build configuration list for PBXNativeTarget "Beacons" */;
 			buildPhases = (
+				A5330DE899C071D6115F8CF4 /* Check Pods Manifest.lock */,
 				0A5382101CE798130070FFC8 /* Sources */,
 				0A5382111CE798130070FFC8 /* Frameworks */,
 				0A5382121CE798130070FFC8 /* Resources */,
+				048C8AA0321CE09D745B2187 /* Embed Pods Frameworks */,
+				14E090E2A4A02F34AD8BED48 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		048C8AA0321CE09D745B2187 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		14E090E2A4A02F34AD8BED48 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5330DE899C071D6115F8CF4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0A5382101CE798130070FFC8 /* Sources */ = {
@@ -249,23 +326,32 @@
 		};
 		0A5382271CE798150070FFC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 017CEED9CDB3A5D6D24759FD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Beacons/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bagga.Beacons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Beacons/Beacons-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		0A5382281CE798150070FFC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CBF13182D5908096377217F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Beacons/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bagga.Beacons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Beacons/Beacons-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 			};
 			name = Release;
 		};
@@ -288,6 +374,7 @@
 				0A5382281CE798150070FFC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
