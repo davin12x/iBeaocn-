@@ -135,9 +135,9 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
                 print("Exist")
                 do{
                    let result =  try String (contentsOfFile: realPath)
-                    print("Print Result is \(result)")
+                    //print("Print Result is \(result)")
                     let readSVM = SVMModel(loadFromFile: realPath)
-                    print(readSVM)
+                    //print(readSVM)
                 } catch let error as NSError {
                     print(error)
                 }
@@ -162,12 +162,14 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
         
         
         //This is used to convert outer model file to string and put it into documents directory . Which is useless
-        if let path = NSBundle.mainBundle().pathForResource("test.txt", ofType: "model"){
+        //
+        if let path = NSBundle.mainBundle().pathForResource("ios_train", ofType: "txt"){
             let fm = NSFileManager()
             let exists = fm.fileExistsAtPath(path)
             if(exists){
                 do {
                     let text = try  String(contentsOfFile: path)
+                    //print(text)
                     let result = try text.writeToFile(pathSave, atomically: true, encoding: NSUTF8StringEncoding)
                 } catch let error as NSError {
                     print(error)
