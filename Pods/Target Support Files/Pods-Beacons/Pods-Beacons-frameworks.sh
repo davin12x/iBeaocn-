@@ -82,3 +82,14 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${PODS_ROOT}/KontaktSDK/Cocoapods/iOS/KontaktSDK.framework"
+  install_framework "Pods-Beacons/Starscream.framework"
+  install_framework "Pods-Beacons/SwiftyJSON.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${PODS_ROOT}/KontaktSDK/Cocoapods/iOS/KontaktSDK.framework"
+  install_framework "Pods-Beacons/Starscream.framework"
+  install_framework "Pods-Beacons/SwiftyJSON.framework"
+fi

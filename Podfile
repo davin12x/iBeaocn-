@@ -3,6 +3,11 @@
 # Uncomment this line if you're using Swift
  use_frameworks!
 pod 'EstimoteIndoorSDK'
+pod 'Firebase'
+pod 'Firebase/Database'
+pod 'KontaktSDK', '~> 1.0'
+pod 'Starscream', '~> 1.1.3'
+pod 'SwiftyJSON'
 target 'Beacons' do
 
 end

@@ -8,21 +8,49 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Starscream.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1BA84416B19DF31967CCD7D02D962E49</key>
+		<key>3508DBDF35C703F497CAEC5420B91B1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>788C438BD83EAD1104556214F7B4FE6C</key>
+		<key>4E548CC12BB421A48EAC1A01E8B3F546</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8AD418BA62186C4292207E9B090CB66E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B78F766B0152B7D473329AC5342DC04C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
