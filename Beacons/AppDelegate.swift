@@ -15,89 +15,11 @@ import KontaktSDK
 class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
-    var locationManager : CLLocationManager?
-    var lastProximity: CLProximity?
-    
-    let uuidString = "7A26A0CC-7C1B-4FF2-AE4B-C049CDF8EEF8"
-    let beaconIdentifier = "monitored region"
-    
-    //Init beaconManager
-    let beaconManager = ESTBeaconManager()
-    var KTbeaconManager: KTKBeaconManager!
-    
-    
-
-    override init() {
-        FIRApp.configure()
-    }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        //FIRApp.configure()
-        
-        Kontakt.setAPIKey("ROQzXRHrMfGrbsWuHWAsEeOvWgouQdCa");
-        KTbeaconManager = KTKBeaconManager(delegate: self)
-        KTbeaconManager.requestLocationAlwaysAuthorization();
-        
-        
-      //  self.beaconManager.delegate = self
-        
-        self.beaconManager.requestAlwaysAuthorization()
-        
-        let beaconUUID:NSUUID = NSUUID(UUIDString: uuidString)!
-        let region = KTKBeaconRegion(proximityUUID: beaconUUID, identifier: "region")
-        KTbeaconManager.startMonitoringForRegion(region)
-        KTbeaconManager.startRangingBeaconsInRegion(region)
-        
-        let beaconRegion:CLBeaconRegion = CLBeaconRegion(proximityUUID: beaconUUID, identifier: beaconIdentifier)
-        
-        //Start Moitoring
-        self.beaconManager.startMonitoringForRegion(beaconRegion)
-        
-        //To run app from Delegate call below method
-        //initLocationManager()
-        
-        // to show notifications
-      
-            UIApplication.sharedApplication().registerUserNotificationSettings(
-                UIUserNotificationSettings(forTypes: .Alert, categories: nil))
-                
         return true
     }
     
-    func initLocationManager() {
-        
-        let beaconUUID:NSUUID = NSUUID(UUIDString: uuidString)!
-        let beaconRegion:CLBeaconRegion = CLBeaconRegion(proximityUUID: beaconUUID, identifier: beaconIdentifier)
-        locationManager = CLLocationManager()
-       
-       // self.locationManager!.delegate = self
-        locationManager!.pausesLocationUpdatesAutomatically = false
-        locationManager!.startMonitoringForRegion(beaconRegion)
-        locationManager!.startRangingBeaconsInRegion(beaconRegion)
-                locationManager!.startUpdatingLocation();
-        
-//        //To Notify
-//                if(application.respondsToSelector("registerUserNotificationSettings:")) {
-//                    application.registerUserNotificationSettings(
-//                        UIUserNotificationSettings(
-//                            forTypes: UIUserNotificationType.Alert ,
-//                            categories: nil
-//                        )
-//                    )
-//                }
-    }
-    
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        
-        let notification = UILocalNotification()
-        notification.alertBody =
-            "Your gate closes in 47 minutes. " +
-            "Current security wait time is 15 minutes, " +
-            "and it's a 5 minute walk from security to the gate. " +
-        "Looks like you've got plenty of time!"
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -123,82 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
 
 }
-extension AppDelegate: KTKBeaconManagerDelegate{
-    
-    
-    func beaconManager(manager: KTKBeaconManager, didChangeLocationAuthorizationStatus status: CLAuthorizationStatus) {
-        
-    }
-    
-    func beaconManager(manager: KTKBeaconManager, didEnterRegion region: KTKBeaconRegion) {
-             print("Enter region \(region)")
-    }
-    
-    func beaconManager(manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
-             print("Enter region \(region)")
-    }
-    
-    func beaconManager(manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], inRegion region: KTKBeaconRegion) {
-        
-        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .MediumStyle)
-        
-        
-        let nearestBeacon:CLBeacon = beacons[0] as CLBeacon
-        
-                    //nearestBeacon.proximity;
-                  //  print(timestamp)
-        
-        if nearestBeacon.accuracy != -1 {
-            //print(nearestBeacon.accuracy)
-        }
-        
-        
-    }
-    
-    func sendLocalNotificationWithMessage (message:String!) {
-        let notification:UILocalNotification = UILocalNotification()
-        notification.alertBody = message
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
-    }
-    
-    
-//    func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-//        
-//        NSLog("didRangeBeacons");
-//        
-//        var message:String = ""
-//        
-//        if(beacons.count > 0) {
-//    
-//        let nearestBeacon:CLBeacon = beacons[0] as CLBeacon
-//            
-//            if(nearestBeacon.proximity == lastProximity ||
-//                nearestBeacon.proximity == CLProximity.Unknown) {
-//                return;
-//            }
-//            lastProximity = nearestBeacon.proximity;
-//            
-//            print(nearestBeacon.accuracy)
-//            
-//            
-//            switch nearestBeacon.proximity {
-//            case CLProximity.Far:
-//                message = "You are far away from the beacon"
-//            case CLProximity.Near:
-//                message = "You are near the beacon"
-//            case CLProximity.Immediate:
-//                message = "You are in the immediate proximity of the beacon"
-//            case CLProximity.Unknown:
-//                return
-//            }
-//        } else {
-//            message = "No beacons are nearby"
-//        }
-//        
-//        NSLog("%@", message)
-//        sendLocalNotificationWithMessage(message)
-//    }
-    
-}
+
+
 
 
