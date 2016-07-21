@@ -13,21 +13,24 @@ import CoreLocation
 import Firebase
 import KontaktSDK
 import Starscream
+import Foundation
 
 class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegate{
     
+    
+
+    
+    
+    
     let beaconManager = ESTBeaconManager()
-     var fileMgr = NSFileManager()
-    
-    var dataTypes: DataSetType {
-        return DataSetType.Classification
-    }
+    var fileMgr = NSFileManager()
+    var yourArray = [Double]()
     let filemgr = NSFileManager.defaultManager()
-    
     var socket = WebSocket(url: NSURL(string: "ws://192.168.0.23:54321")!)
-    
+    var scanned: Double?
     //Device ID
     var deviceID =  UIDevice.currentDevice().identifierForVendor!.UUIDString
+    let testData = DataSet(dataType: .Classification, inputDimension: 1, outputDimension: 1)
    
 
     var fireBaseDatabse = FIRDatabase.database().reference()
@@ -47,6 +50,13 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
     var _heatZone:String?
     var _udi:String!
     var _minor:String!
+    var datas = DataSet(dataType: DataSetType.Classification, inputDimension: 1, outputDimension: 1)
+    //  Create an SVM classifier and train
+    let svm = SVMModel(problemType: .C_SVM_Classification, kernelSettings:
+        KernelParameters(type: .RadialBasisFunction, degree: 0, gamma: 0.5, coef0: 0.0))
+    
+    
+    
     
     //Define  x,y Region for each beacons distance need to update  dynamically 
     //if any beacon come in same cooridnate algo will give nan or some other values
@@ -79,108 +89,86 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
         self.beaconManager.avoidUnknownStateBeacons = true
         self.fireBaseDatabse = FIRDatabase.database().reference()
         
-        //Training
-        var data = DataSet(dataType:dataTypes,inputDimension: 2,outputDimension: 1);
-        do {
-            
-            for index in 1...50 {
-                try data.addDataPoint(input: [0.0, 1.0], output:3)
-                try data.addDataPoint(input: [0.0, 0.9], output:1)
-                try data.addDataPoint(input: [0.1, 1.0], output:1)
-                try data.addDataPoint(input: [1.0, 0.0], output:0)
-                try data.addDataPoint(input: [1.0, 0.1], output:0)
-                try data.addDataPoint(input: [0.9, 0.0], output:0)
-            }
-        }
-        catch {
-            print("Invalid data set created")
-        }
-        
-        //  Create an SVM classifier and train
-        let svm = SVMModel(problemType: .C_SVM_Classification, kernelSettings:
-            KernelParameters(type: .RadialBasisFunction, degree: 0, gamma: 0.5, coef0: 0.0))
-        svm.train(data)
-        
-        //Saving the File
-        let pathSave = getDocumentsDirectory().stringByAppendingPathComponent("train.model")
-        do{
-            try  svm.saveToFile(pathSave)
-        }
-            
-        catch let error as NSError {
-            print(error)
-        }
-        
-        //  Create a test dataset
-        let testData = DataSet(dataType: .Classification, inputDimension: 2, outputDimension: 1)
-        do {
-            try testData.addTestDataPoint(input: [0.0, 0.1])    //  Expect 1
-            try testData.addTestDataPoint(input: [0.1, 0.0])    //  Expect 0
-            try testData.addTestDataPoint(input: [1.0, 0.9])    //  Expect 0
-            try testData.addTestDataPoint(input: [0.9, 1.0])    //  Expect 1
-            try testData.addTestDataPoint(input: [0.5, 0.4])    //  Expect 0
-            try testData.addTestDataPoint(input: [0.5, 0.6])    //  Expect 1
-            try testData.addTestDataPoint(input: [0.1, 0.7])
-        }
-        catch {
-            print("Invalid data set created")
-        }
-        
-        
-        //Will check if file exist
-            let fm = NSFileManager()
-            let realPath = getDocumentsDirectory().stringByAppendingPathComponent("train.model")
-            let exists = fm.fileExistsAtPath(realPath)
-            if(exists){
-                print("Exist")
-                do{
-                   let result =  try String (contentsOfFile: realPath)
-                    //print("Print Result is \(result)")
-                    let readSVM = SVMModel(loadFromFile: realPath)
-                    //print(readSVM)
-                } catch let error as NSError {
-                    print(error)
-                }
-                
-            }
-       
-        
-        //Will check if file is readable . If yes will push testData for test then it gona predict value
-        let pathSaves = getDocumentsDirectory().stringByAppendingPathComponent("train.model")
-        //Read data from file
-        let readSVM = SVMModel(loadFromFile: pathSaves)
-        if let readSVM = readSVM {
-            readSVM.predictValues(testData)
-            var classLabel : Int
-            do {
-                try classLabel = testData.getClass(0)
-                    print(classLabel == 1, "first test data point, expect 1")
-                           
-                }catch { print("Error in prediction with read SVM")
-                        }
-        }
         
         
         //This is used to convert outer model file to string and put it into documents directory . Which is useless
         //
-        if let path = NSBundle.mainBundle().pathForResource("ios_train", ofType: "txt"){
+        if let path = NSBundle.mainBundle().pathForResource("datas", ofType: "txt"){
             let fm = NSFileManager()
+           
             let exists = fm.fileExistsAtPath(path)
+            var items = 0
             if(exists){
                 do {
-                    let text = try  String(contentsOfFile: path)
-                    //print(text)
-                    let result = try text.writeToFile(pathSave, atomically: true, encoding: NSUTF8StringEncoding)
+                    
+                    var text = try  String(contentsOfFile: path)
+                    var brokeByLines = text.componentsSeparatedByString(" ")
+                    
+                    for items in brokeByLines {
+                        
+                        let trimmedString = items.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+                        )
+                        
+                    
+                        if trimmedString != "" {
+                            yourArray.append(Double(trimmedString)!)
+                        }
+                        
+                    }
+      
                 } catch let error as NSError {
                     print(error)
                 }
             }
         }
-        
         socket.delegate = self
         socket.connect()
+        var i = 0;
+        var j = 1;
         
+        
+        var dd = [String]()
+        var hey = [String]()
+        
+        for elements in yourArray.reverse() {
+            if j == 565{
+                break;
+            }
+            
+            trainClassfier(yourArray[j], output: Int(yourArray[i]))
+            
+            i += 2
+            j += 2
+           
+        }
+        
+        
+       
+        svm.train(datas)
+        print("Data trained")
+        
+        let testData = DataSet(dataType: .Classification, inputDimension: 1, outputDimension: 1)
+        do {
+            try testData.addTestDataPoint(input: [0.3117])
+        }
+        catch {
+            print("Invalid data set created")
+        }
+        
+        svm.predictValues(testData)
+        
+        var classLabel : Int
+        do {
+            try classLabel = testData.getClass(0)
+            try print(classLabel)
+        }
+        catch {
+            print("Error in prediction")
+        }
     }
+    
+
     
     //will make path to documents
     func getDocumentsDirectory() -> NSString {
@@ -188,7 +176,6 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
-    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -206,8 +193,10 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
     func websocketDidDisconnect(ws: WebSocket, error: NSError?) {
         if let e = error {
             print("websocket is disconnected: \(e.localizedDescription)")
+            //socket.connect();
         } else {
             print("websocket disconnected")
+            //socket.connect();
         }
     }
     
@@ -319,10 +308,39 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
                 
                 let timestamps = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .MediumStyle)
                 
+               // print(nearestBeacon.accuracy)
+                print(nearestBeacon.accuracy)
+                print(scaleFunction(nearestBeacon.accuracy))
+            
                 
+                if nearestBeacon.accuracy != -1 {
+                    let testData = DataSet(dataType: .Classification, inputDimension: 1, outputDimension: 1)
+                    do {
+                        try testData.addTestDataPoint(input: [scaleFunction(nearestBeacon.accuracy)])
+                    }
+                    catch {
+                        print("Invalid data set created")
+                    }
+                    
+                    svm.predictValues(testData)
+                    
+                    var classLabel : Int
+                    do {
+                        try classLabel = testData.getClass(0)
+                        try print(classLabel)
+                    }
+                    catch {
+                        print("Error in prediction")
+                    }
+                }
+            
                 
-                writeDataToServer(1,timeStamp: timestamps,deviceID:deviceID,beaconID: nearestBeacon.proximityUUID.UUIDString,
-                                  major: major,minor:minor)
+                //Passing accuracy
+                //getHeatZone(nearestBeacon.accuracy)
+                
+//                writeDataToServer(1,timeStamp: timestamps,deviceID:deviceID,beaconID: nearestBeacon.proximityUUID.UUIDString,
+//                                  major: major,minor:minor)
+                
                 
       //          postToFirebase(nearestBeacon.proximityUUID.UUIDString, rssi: String(nearestBeacon.rssi), accuracy: String(nearestBeacon.accuracy), minor: String(nearestBeacon.minor), zoneType: _heatZone!)
             }
@@ -344,8 +362,6 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
     @IBAction func onOnePressed(sender: AnyObject) {
         self.beaconManager.startRangingBeaconsInRegion(self.beaconRegion)
         _heatZone = "1"
-
-    
     }
     
     @IBAction func onTwoPressed(sender: AnyObject) {
@@ -376,20 +392,62 @@ class ViewController: UIViewController,ESTBeaconManagerDelegate,WebSocketDelegat
     }
     
     @IBAction func onDeletePressed(sender:AnyObject) {
-        
         var id = "\(_udi)-\(_minor)"
         print(id)
          self.fireBaseDatabse.child("7A26A0CC-7C1B-4FF2-AE4B-C049CDF8EEF8-4").child(_heatZone!).removeValue()
     }
     
+    func trainClassfier(first:Double,output:Int) -> Void {
+        //Training
+       
+        do {
+                try datas.addDataPoint(input: [first], output:output)
+        }
+        catch {
+            print("Invalid data set created")
+        }
+    }
     
+
+    func addAccuracy(acc:Double) {
+        
+        do {
+           try testData.addTestDataPoint(input: [0.4858])
+            print("Add ac")
+        }
+        catch {
+            print("Invalid data set created")
+        }
+        
+    }
     
+    func getHeat() {
+        
+       // realSVM.predictValues(testData)
+        var classLabel : Int
+        do {
+            try classLabel = testData.getClass(0)
+            try print(classLabel)
+        }
+        catch {
     
-    
-    
-    
-    
+    }
 }
+    
+    /***
+     * get the scale value
+     *
+     * @param distance getting from Estimo sdk
+     * @return
+     */
+    
+    func scaleFunction(distance:Double) -> Double {
+        //return y_lower + (y_upper - y_lower) * (value - y_min)/(y_max-y_min);
+        return 0 + (1 - 0) * (distance - 1.591574057) / (24.48436747 - 1.591574057);
+    }
+
+}
+
 
 
 

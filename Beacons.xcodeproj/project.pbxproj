@@ -12,7 +12,7 @@
 		0A53821D1CE798150070FFC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A53821B1CE798150070FFC8 /* Main.storyboard */; };
 		0A53821F1CE798150070FFC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A53821E1CE798150070FFC8 /* Assets.xcassets */; };
 		0A5382221CE798150070FFC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5382201CE798150070FFC8 /* LaunchScreen.storyboard */; };
-		0A59FE211D35E305006E443B /* ios_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A59FE201D35E305006E443B /* ios_train.txt */; };
+		0A8B45EC1D3AA031000840DD /* datas.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A8B45EB1D3AA031000840DD /* datas.txt */; };
 		0AEE934B1D16156B004D1400 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AEE934A1D16156B004D1400 /* GoogleService-Info.plist */; };
 		0AF852CC1D32D10E001DA729 /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF852C81D32D10E001DA729 /* DataSet.swift */; };
 		0AF852CD1D32D10E001DA729 /* Kernel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF852C91D32D10E001DA729 /* Kernel.swift */; };
@@ -21,7 +21,6 @@
 		0AF852DD1D32D23D001DA729 /* Libsvm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF852D51D32D23D001DA729 /* Libsvm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0AF852E91D32D315001DA729 /* BeaconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF852E81D32D315001DA729 /* BeaconsTests.swift */; };
 		0AF852F11D32D4C9001DA729 /* AIToolbox in Resources */ = {isa = PBXBuildFile; fileRef = 0AF852F01D32D4C9001DA729 /* AIToolbox */; };
-		0AF852F31D32F42C001DA729 /* test.txt.model in Resources */ = {isa = PBXBuildFile; fileRef = 0AF852F21D32F42C001DA729 /* test.txt.model */; };
 		84B157F568049BEC1FB8758C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE8ABB8BE2BC0D7FDBBCA14 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +65,7 @@
 		0A5382211CE798150070FFC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A5382231CE798150070FFC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A53822C1CE7A2310070FFC8 /* Beacons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Beacons-Bridging-Header.h"; sourceTree = "<group>"; };
-		0A59FE201D35E305006E443B /* ios_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios_train.txt; sourceTree = "<group>"; };
+		0A8B45EB1D3AA031000840DD /* datas.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datas.txt; sourceTree = "<group>"; };
 		0AEE934A1D16156B004D1400 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AF852C81D32D10E001DA729 /* DataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
 		0AF852C91D32D10E001DA729 /* Kernel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kernel.swift; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 		0AF852E81D32D315001DA729 /* BeaconsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsTests.swift; sourceTree = "<group>"; };
 		0AF852EA1D32D315001DA729 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF852F01D32D4C9001DA729 /* AIToolbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AIToolbox; path = ../AIToolbox; sourceTree = "<group>"; };
-		0AF852F21D32F42C001DA729 /* test.txt.model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt.model; sourceTree = "<group>"; };
 		5CBF13182D5908096377217F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6FE8ABB8BE2BC0D7FDBBCA14 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,8 +109,6 @@
 		0A53820B1CE798130070FFC8 = {
 			isa = PBXGroup;
 			children = (
-				0A59FE201D35E305006E443B /* ios_train.txt */,
-				0AF852F21D32F42C001DA729 /* test.txt.model */,
 				0A5382161CE798140070FFC8 /* Beacons */,
 				0AF852E71D32D315001DA729 /* BeaconsTests */,
 				0A5382151CE798130070FFC8 /* Products */,
@@ -134,6 +130,7 @@
 		0A5382161CE798140070FFC8 /* Beacons */ = {
 			isa = PBXGroup;
 			children = (
+				0A8B45EB1D3AA031000840DD /* datas.txt */,
 				0AF852C81D32D10E001DA729 /* DataSet.swift */,
 				0AF852C91D32D10E001DA729 /* Kernel.swift */,
 				0AF852CA1D32D10E001DA729 /* SVM.swift */,
@@ -296,13 +293,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A59FE211D35E305006E443B /* ios_train.txt in Resources */,
 				0AF852F11D32D4C9001DA729 /* AIToolbox in Resources */,
 				0A5382221CE798150070FFC8 /* LaunchScreen.storyboard in Resources */,
 				0AEE934B1D16156B004D1400 /* GoogleService-Info.plist in Resources */,
 				0A53821F1CE798150070FFC8 /* Assets.xcassets in Resources */,
+				0A8B45EC1D3AA031000840DD /* datas.txt in Resources */,
 				0A53821D1CE798150070FFC8 /* Main.storyboard in Resources */,
-				0AF852F31D32F42C001DA729 /* test.txt.model in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

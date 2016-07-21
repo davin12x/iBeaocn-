@@ -58,13 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //initLocationManager()
         
         // to show notifications
-        if #available(iOS 8.0, *) {
+      
             UIApplication.sharedApplication().registerUserNotificationSettings(
                 UIUserNotificationSettings(forTypes: .Alert, categories: nil))
-        } else {
-            // Fallback on earlier versions
-        }
-        
+                
         return true
     }
     

@@ -1000,7 +1000,7 @@ public class SVMModel
         let pList = NSDictionary(dictionary: modelDictionary)
             do {
                  let result = try  pList.writeToFile(path, atomically: true)
-                print("File Saved \(result)")
+               // print("File Saved \(result)")
             } catch let error as NSError{
                 // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
                  print(error)
